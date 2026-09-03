@@ -1,0 +1,3 @@
+/Users/omeed/CLionProjects/rc_simulator/cmake-build-debug/CMakeFiles/rc_simulator.dir
+/Users/omeed/CLionProjects/rc_simulator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/omeed/CLionProjects/rc_simulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
