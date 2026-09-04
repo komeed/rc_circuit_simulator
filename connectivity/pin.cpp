@@ -28,25 +28,37 @@ uint32_t global_pin_arr::add_pin_to_arr(pin* pin) {
 }*/
 
 pin::pin(component* comp) : parent_comp(comp) {
-    wired_net = nullptr;
+    wired_node = nullptr;
 }
 
 //this assumes that the current pin is
 void pin::connect_to_pin(pin* other) {
-    if (wired_net == nullptr && other->wired_net == nullptr) {
+    if (wired_node == nullptr && other->wired_node == nullptr) {
         // both pins don't have nets, create a net connecting them
-        auto n = new node();
-        wired_net = n;
-        other->wired_net = n;
+        auto n = new node_t();
+        wired_node = n;
+        other->wired_node = n;
 
     }
 }
 
-node::node() {
+node_t::node_t() {
     pins = std::vector<pin*>();
     voltage = 0; // initial voltage is 0
 }
 
-void node::add_pin(pin* pin) {
+void node_t::add_pin(pin* pin) {
+    if (!pin) return;
     pins.push_back(pin);
+    pin->wired_node = this;
+}
+
+void node_t::move_pins_from(node_t* other_node) {
+    if (!other_node) {
+        return;
+    }
+    for (auto pin : other_node->pins) {
+        add_pin(pin);
+    }
+    other_node->pins.clear();
 }

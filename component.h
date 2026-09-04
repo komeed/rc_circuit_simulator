@@ -5,7 +5,7 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-
+class pin;
 
 class component {
 
@@ -16,6 +16,6 @@ class cc_component {
 
 };
 
-void connect_components(component* a, component* b);
+void connect_components(pin* a, pin* b);
 
 #endif //COMPONENT_H

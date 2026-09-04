@@ -7,30 +7,26 @@
 #include "connectivity/pin.h"
 
 void connect_components(pin* a, pin* b) {
-    if (!a->wired_net && !b->wired_net) {
-        node* net = new node();
-        a->wired_net = net;
-        b->wired_net = net;
-        net->add_pin(a);
-        net->add_pin(b);
+    if (!a->wired_node && !b->wired_node) {
+        node_t* node = new node_t();
+        a->wired_node = node;
+        b->wired_node = node;
+        node->add_pin(a);
+        node->add_pin(b);
     }
-    else if (!a->wired_net && b->wired_net) {
-        a->wired_net = b->wired_net;
-        b->wired_net->add_pin(a);
+    else if (!a->wired_node && b->wired_node) {
+        a->wired_node = b->wired_node;
+        b->wired_node->add_pin(a);
     }
-    if (a->wired_net) {
-        if (!b->wired_net) {
-            //set b->wired_net to a->net
-            b->wired_net = a->wired_net;
-        }
-        else {
-
-        }
+    else if (a->wired_node && !b->wired_node) {
+        b->wired_node = a->wired_node;
+        a->wired_node->add_pin(b);
     }
-    else if (b->wired_net) {
-        a->wired_net = b->wired_net;
-    }
-    else {
-
+    else if (a->wired_node && b->wired_node && (a->wired_node != b->wired_node)) {
+        //if both already have nodes, move pins from b node to a node
+        node_t* node = a->wired_node;
+        node_t* temp_b_node = b->wired_node;
+        node->move_pins_from(b->wired_node);
+        delete temp_b_node;
     }
 }

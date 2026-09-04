@@ -11,7 +11,9 @@ add_executable(rc_simulator main.cpp
         component.cpp
         component.h
 connectivity/pin.h
-connectivity/pin.cpp)
+connectivity/pin.cpp
+        circuit.cpp
+        circuit.h)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(rc_simulator PRIVATE SDL3::SDL3)
