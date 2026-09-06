@@ -1,0 +1,10 @@
+# these are comments! sure lol
+# V = Voltage Source, R = Resistor, C = Capacitor, I = current source, G = ground source
+# | type | id | parameters (nodes typically) | value
+# V param: node A (power), node B (ground)
+# I I1 1 -1 1
+# We're basically saying create voltage 5 volts connecting R1
+V V1 1 -1 5
+R R1 1 2 1000
+R R2 2 -1 2000
+# G G1 2 -1 0

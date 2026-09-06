@@ -5,14 +5,14 @@
 #ifndef CAPACITOR_H
 #define CAPACITOR_H
 
-#include "connectivity/pin.h"
+#include "components/node.h"
 
-
+/*
 class capacitor {
     float capacitance;
-    pin pin_a; // assuming no polariyt
-    pin pin_b;
-};
+    node pin_a; // assuming no polariyt
+    node pin_b;
+};*/
 
 
 

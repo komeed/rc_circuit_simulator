@@ -4,9 +4,9 @@
 
 #include "component.h"
 
-#include "connectivity/pin.h"
-
-void connect_components(pin* a, pin* b) {
+#include "node.h"
+/*
+void connect_components(node* a, node* b) {
     if (!a->wired_node && !b->wired_node) {
         node_t* node = new node_t();
         a->wired_node = node;
@@ -29,4 +29,4 @@ void connect_components(pin* a, pin* b) {
         node->move_pins_from(b->wired_node);
         delete temp_b_node;
     }
-}
+}*/

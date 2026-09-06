@@ -5,9 +5,12 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
+#include "matrix.h"
 #include "vector"
-#include "component.h"
+#include "components/component.h"
+#include "components/resistor.h"
 #include "unordered_map"
+#include "components/node.h"
 
 struct component_name {
     std::string name;
@@ -32,15 +35,22 @@ namespace std {
 
 class circuit {
     //vector storing ownership of the actual components
-    std::vector<component> comp_storage;
-    //unordered map storing name to component pointer
-    std::unordered_map<component_name, std::unique_ptr<component>> comp_map;
+    std::vector<std::unique_ptr<component>> comp_storage;
+    std::unordered_map<int, std::unique_ptr<node_t>> node_storage;
 
 public:
     circuit();
-    void add_component(component c);
+    void add_component(std::unique_ptr<component> comp);
+    void add_node(int index, std::unique_ptr<node_t> n);
+    component* get_component(int index) { return comp_storage[index].get(); }
+    component* get_last_component() { return comp_storage.back().get(); }
+    node_t* contains_add_node(int index);
+
+    matrix* solve_circuit();
+
+    /*void add_component(component c);
     void circuit::add_component(component c, std::string name);
-    void circuit::add_component(component c, std::string name, int num);
+    void circuit::add_component(component c, std::string name, int num);*/
 };
 
 
