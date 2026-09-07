@@ -11,6 +11,7 @@
 circuit::circuit() {
     comp_storage = std::vector<std::unique_ptr<component>>();
     node_storage = std::unordered_map<int, std::unique_ptr<node_t>>();
+    contains_ground_node = 0;
 }
 void circuit::add_component(std::unique_ptr<component> c) {
     comp_storage.push_back(std::move(c));
@@ -30,7 +31,10 @@ node_t* circuit::contains_add_node(int index) {
 }
 
 matrix* circuit::solve_circuit() {
-    int num_nodes = node_storage.size() - 1; // excluding ground!
+    int num_nodes = node_storage.size();
+    if (contains_ground_node) {
+        num_nodes --; // excluding ground
+    }
     int num_vs = 0;
     for (int i = 0; i < comp_storage.size(); i++) {
         component* comp = comp_storage[i].get();
@@ -51,7 +55,7 @@ matrix* circuit::solve_circuit() {
             int node_1 = r->node_a->id;
             int node_2 = r->node_b->id;
             if (node_1 > num_nodes || node_2 > num_nodes) {
-                fprintf(stderr, "oops!");
+                fprintf(stderr, "nodes are exceeded! ");
             }
             float conductance = 1.0f/(r->resistance);
             if (node_1 != GROUND_NODE_NUM) {
@@ -89,7 +93,39 @@ matrix* circuit::solve_circuit() {
     current_matrix->print();
 
     cond_matrix.solve_matrix(current_matrix);
+
+    //go through each component and calculate voltage for each
+    for (int i = 0; i < comp_storage.size(); i++) {
+        component* comp = comp_storage[i].get();
+        int node_a = comp->node_a->id;
+        int node_b = comp->node_b->id;
+        float v1, v2;
+        if (node_a == GROUND_NODE_NUM) {
+            v1 = 0;
+        }
+        else {
+            v1 = current_matrix->get_val_normal(node_a, 1);
+        }
+        if (node_b == GROUND_NODE_NUM) {
+            v2 = 0;
+        }
+        else {
+            v2 = current_matrix->get_val_normal(node_b, 1);
+        }
+        comp->voltage = ABS(v1 - v2);
+    }
+
     return current_matrix;
+}
+
+void circuit::print_components() {
+    for (int i = 0; i < comp_storage.size(); i++) {
+        component* comp = comp_storage[i].get();
+        if (comp->get_type() == COMPONENT_TYPE::RESISTOR) {
+            resistor* r = dynamic_cast<resistor*>(comp);
+            printf("R: %s, Voltage: %f\n", r->id.c_str(), r->voltage);
+        }
+    }
 }
 /*
 void circuit::add_component(component c) {

@@ -16,7 +16,8 @@ public:
     node_t* node_b;
 
     COMPONENT_TYPE get_type() override { return COMPONENT_TYPE::CURRENT_SOURCE; }
-    current_source(std::string id, float current, node_t* a, node_t* b);
+    current_source(std::string id, float current, node_t* a, node_t* b) :
+                component(id, 0, a, b), current(current) {}
 };
 
 

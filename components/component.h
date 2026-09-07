@@ -5,6 +5,10 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <utility>
+
+#include "node.h"
+
 typedef enum {
     RESISTOR,
     CAPACITOR,
@@ -14,6 +18,11 @@ typedef enum {
 
 class component {
 public:
+    std::string id;
+    float voltage;
+    node_t* node_a;
+    node_t* node_b;
+    component(std::string id, float voltage, node_t* a, node_t* b) : id(std::move(id)),voltage(voltage), node_a(a), node_b(b) {}
     virtual COMPONENT_TYPE get_type() = 0;
     virtual ~component() = default;
 };

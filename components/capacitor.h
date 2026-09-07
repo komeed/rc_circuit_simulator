@@ -5,7 +5,7 @@
 #ifndef CAPACITOR_H
 #define CAPACITOR_H
 
-#include "components/node.h"
+#include "node.h"
 
 /*
 class capacitor {

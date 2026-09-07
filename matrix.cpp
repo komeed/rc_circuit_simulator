@@ -9,7 +9,7 @@
 #include <cstdio>
 #include <vector>
 
-#define ABS(x) (((x) < 0) ? -(x) : (x))
+
 
 matrix::matrix(int num_row, int num_col): m(num_row), n(num_col) {
     backing_arr = new float[m*n]();

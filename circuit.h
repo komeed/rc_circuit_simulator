@@ -37,8 +37,8 @@ class circuit {
     //vector storing ownership of the actual components
     std::vector<std::unique_ptr<component>> comp_storage;
     std::unordered_map<int, std::unique_ptr<node_t>> node_storage;
-
 public:
+    uint8_t contains_ground_node;
     circuit();
     void add_component(std::unique_ptr<component> comp);
     void add_node(int index, std::unique_ptr<node_t> n);
@@ -47,6 +47,8 @@ public:
     node_t* contains_add_node(int index);
 
     matrix* solve_circuit();
+
+    void print_components();
 
     /*void add_component(component c);
     void circuit::add_component(component c, std::string name);

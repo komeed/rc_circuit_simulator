@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(rc_simulator main.cpp
         components/resistor.cpp
         components/resistor.h
-        capacitor.cpp
-        capacitor.h
+        components/capacitor.cpp
+        components/capacitor.h
         components/component.cpp
         components/component.h
         components/node.h
@@ -20,7 +20,10 @@ add_executable(rc_simulator main.cpp
         matrix.cpp
         matrix.h
         components/voltage_source.cpp
-        components/voltage_source.h)
+        components/voltage_source.h
+        parser/netlist_generator.cpp
+        parser/netlist_generator.h
+        parser/netlist_generator.cpp)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(rc_simulator PRIVATE SDL3::SDL3)

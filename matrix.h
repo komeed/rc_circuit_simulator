@@ -5,7 +5,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-
+#define ABS(x) (((x) < 0) ? -(x) : (x))
 
 class matrix {
     int m; // rows
@@ -19,6 +19,7 @@ public:
     void subtract_val(int row, int col, float val) { backing_arr[(row)*n + (col)] -= val; }
     void set_val_normal(int row, int col, float val) { backing_arr[(row - 1)*n + (col - 1)] = val; }
     float get_val_normal(int row, int col) { return backing_arr[(row - 1)*n + (col - 1)]; }
+    float get_val(int row, int col) { return backing_arr[(row)*n + (col)]; }
     float divide_val(int row, int col, float val) { return (backing_arr[(row) * n + (col)] /= val); }
     void print() const;
 
